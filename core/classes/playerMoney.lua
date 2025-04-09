@@ -45,7 +45,8 @@ function Money:Construct()
 	overlay:RegisterForClicks('anyUp')
 	overlay:SetAllPoints()
 
-	f.info = MoneyTypeInfo[f.Type]
+	-- implemented the recommended fix for the bug that is currently live.
+	f.info = (MoneyTypeInfo and MoneyTypeInfo[f.Type]) or {UpdateFunc = function(self) return self:GetMoney() end}--MoneyTypeInfo[f.Type]
 	f.overlay = overlay
 	return f
 end
